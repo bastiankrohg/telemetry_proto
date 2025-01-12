@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package telemetry;
+
+// Request sent by the navigation system to the visualization system
+message NavigationUpdate {
+  repeated float current_position = 1; // x, y
+  repeated float current_heading = 2; // Heading angle
+  repeated Position traveled_path = 3; // List of past positions
+  repeated Position path = 4;         // Remaining waypoints
+  repeated Position obstacles = 5;    // Known obstacles
+}
+
+message Position {
+  float x = 1;
+  float y = 2;
+}
+
+// Empty response for simplicity
+message Empty {}
+
+service Telemetry {
+  rpc SendUpdate (NavigationUpdate) returns (Empty);
+}
