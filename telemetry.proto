@@ -1,24 +1,43 @@
 syntax = "proto3";
 
-package telemetry;
+package marsrover;
 
-// Request sent by the navigation system to the visualization system
-message NavigationUpdate {
-  repeated float current_position = 1; // x, y
-  repeated float current_heading = 2; // Heading angle
-  repeated Position traveled_path = 3; // List of past positions
-  repeated Position path = 4;         // Remaining waypoints
-  repeated Position obstacles = 5;    // Known obstacles
+// Service definition for telemetry
+service TelemetryService {
+  rpc StreamTelemetry(EmptyRequest) returns (stream TelemetryData);
 }
 
-message Position {
-  float x = 1;
-  float y = 2;
+// Empty request message
+message EmptyRequest {}
+
+// Telemetry data message
+message TelemetryData {
+  // Raw ultrasound distance measurement (in meters)
+  float ultrasound_distance = 1;
+
+  // Current odometer reading (in meters)
+  float odometer = 2;
+
+  // Current position and heading of the rover
+  string current_position = 3;  // Example format: "x: 10.5, y: -5.2"
+  float heading = 4;            // Heading in degrees (0-360, with 0 as north)
+
+  // Search mode: "Pattern Pursuit" or "Resource Seeking"
+  string search_mode = 5;
+
+  // List of resources found
+  repeated Resource resources_found = 6;
+
+  // Current battery status
+  string battery_status = 7;
+
+  // Optional: Camera image placeholder (e.g., JPEG bytes)
+  bytes camera_image = 8;
 }
 
-// Empty response for simplicity
-message Empty {}
-
-service Telemetry {
-  rpc SendUpdate (NavigationUpdate) returns (Empty);
+// Resource data message
+message Resource {
+  string type = 1;       // Resource type (e.g., "rock", "water")
+  float x_coordinate = 2; // X-coordinate in the global map
+  float y_coordinate = 3; // Y-coordinate in the global map
 }

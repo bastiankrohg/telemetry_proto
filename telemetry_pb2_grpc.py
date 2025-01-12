@@ -2,11 +2,12 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from . import telemetry_pb2 as telemetry__pb2
+import telemetry_pb2 as telemetry__pb2
 
 
-class TelemetryStub(object):
-    """Missing associated documentation comment in .proto file."""
+class TelemetryServiceStub(object):
+    """Service definition for telemetry
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -14,42 +15,44 @@ class TelemetryStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.SendUpdate = channel.unary_unary(
-                '/telemetry.Telemetry/SendUpdate',
-                request_serializer=telemetry__pb2.NavigationUpdate.SerializeToString,
-                response_deserializer=telemetry__pb2.Empty.FromString,
+        self.StreamTelemetry = channel.unary_stream(
+                '/marsrover.TelemetryService/StreamTelemetry',
+                request_serializer=telemetry__pb2.EmptyRequest.SerializeToString,
+                response_deserializer=telemetry__pb2.TelemetryData.FromString,
                 )
 
 
-class TelemetryServicer(object):
-    """Missing associated documentation comment in .proto file."""
+class TelemetryServiceServicer(object):
+    """Service definition for telemetry
+    """
 
-    def SendUpdate(self, request, context):
+    def StreamTelemetry(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_TelemetryServicer_to_server(servicer, server):
+def add_TelemetryServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SendUpdate': grpc.unary_unary_rpc_method_handler(
-                    servicer.SendUpdate,
-                    request_deserializer=telemetry__pb2.NavigationUpdate.FromString,
-                    response_serializer=telemetry__pb2.Empty.SerializeToString,
+            'StreamTelemetry': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamTelemetry,
+                    request_deserializer=telemetry__pb2.EmptyRequest.FromString,
+                    response_serializer=telemetry__pb2.TelemetryData.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'telemetry.Telemetry', rpc_method_handlers)
+            'marsrover.TelemetryService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class Telemetry(object):
-    """Missing associated documentation comment in .proto file."""
+class TelemetryService(object):
+    """Service definition for telemetry
+    """
 
     @staticmethod
-    def SendUpdate(request,
+    def StreamTelemetry(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,8 +62,8 @@ class Telemetry(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/telemetry.Telemetry/SendUpdate',
-            telemetry__pb2.NavigationUpdate.SerializeToString,
-            telemetry__pb2.Empty.FromString,
+        return grpc.experimental.unary_stream(request, target, '/marsrover.TelemetryService/StreamTelemetry',
+            telemetry__pb2.EmptyRequest.SerializeToString,
+            telemetry__pb2.TelemetryData.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

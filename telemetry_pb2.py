@@ -14,19 +14,19 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0ftelemetry.proto\x12\ttelemetry\"\xbc\x01\n\x10NavigationUpdate\x12\x18\n\x10\x63urrent_position\x18\x01 \x03(\x02\x12\x17\n\x0f\x63urrent_heading\x18\x02 \x03(\x02\x12*\n\rtraveled_path\x18\x03 \x03(\x0b\x32\x13.telemetry.Position\x12!\n\x04path\x18\x04 \x03(\x0b\x32\x13.telemetry.Position\x12&\n\tobstacles\x18\x05 \x03(\x0b\x32\x13.telemetry.Position\" \n\x08Position\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\"\x07\n\x05\x45mpty2H\n\tTelemetry\x12;\n\nSendUpdate\x12\x1b.telemetry.NavigationUpdate\x1a\x10.telemetry.Emptyb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0ftelemetry.proto\x12\tmarsrover\"\x0e\n\x0c\x45mptyRequest\"\xda\x01\n\rTelemetryData\x12\x1b\n\x13ultrasound_distance\x18\x01 \x01(\x02\x12\x10\n\x08odometer\x18\x02 \x01(\x02\x12\x18\n\x10\x63urrent_position\x18\x03 \x01(\t\x12\x0f\n\x07heading\x18\x04 \x01(\x02\x12\x13\n\x0bsearch_mode\x18\x05 \x01(\t\x12,\n\x0fresources_found\x18\x06 \x03(\x0b\x32\x13.marsrover.Resource\x12\x16\n\x0e\x62\x61ttery_status\x18\x07 \x01(\t\x12\x14\n\x0c\x63\x61mera_image\x18\x08 \x01(\x0c\"D\n\x08Resource\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x14\n\x0cx_coordinate\x18\x02 \x01(\x02\x12\x14\n\x0cy_coordinate\x18\x03 \x01(\x02\x32Z\n\x10TelemetryService\x12\x46\n\x0fStreamTelemetry\x12\x17.marsrover.EmptyRequest\x1a\x18.marsrover.TelemetryData0\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'telemetry_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
-  _globals['_NAVIGATIONUPDATE']._serialized_start=31
-  _globals['_NAVIGATIONUPDATE']._serialized_end=219
-  _globals['_POSITION']._serialized_start=221
-  _globals['_POSITION']._serialized_end=253
-  _globals['_EMPTY']._serialized_start=255
-  _globals['_EMPTY']._serialized_end=262
-  _globals['_TELEMETRY']._serialized_start=264
-  _globals['_TELEMETRY']._serialized_end=336
+  _globals['_EMPTYREQUEST']._serialized_start=30
+  _globals['_EMPTYREQUEST']._serialized_end=44
+  _globals['_TELEMETRYDATA']._serialized_start=47
+  _globals['_TELEMETRYDATA']._serialized_end=265
+  _globals['_RESOURCE']._serialized_start=267
+  _globals['_RESOURCE']._serialized_end=335
+  _globals['_TELEMETRYSERVICE']._serialized_start=337
+  _globals['_TELEMETRYSERVICE']._serialized_end=427
 # @@protoc_insertion_point(module_scope)
